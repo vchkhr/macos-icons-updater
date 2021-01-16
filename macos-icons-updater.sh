@@ -12,7 +12,7 @@ fi
 for icon in *;
 do
     # Do not process files of this repository
-    if [ $icon = ".gitignore" ] || [ $icon = "LICENSE" ] || [ $icon = "README.md" ] || [ $icon = "macos-update-icons.sh" ]
+    if [ $icon = ".gitignore" ] || [ $icon = "LICENSE" ] || [ $icon = "README.md" ] || [ $icon = "macos-icons-updater.sh" ]
     then
         continue
     fi
