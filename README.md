@@ -1,5 +1,11 @@
 # macOS Icons Updater
-macOS Icons Updater tool automatically replaces custom icons after software updates
+macOS Icons Updater tool automatically replaces custom icons after software updates.
+
+## Problem
+After updating applications, custom icons for programs are replaced with standard ones. Replacing requires a lot of repetitive steps.
+
+## Solution
+Just put custom icons in the specific folder and run this tool after each update of the software. It will automatically replace all the custom icons.
 
 ## How to Use
 1. Download the tool.\
@@ -8,7 +14,7 @@ Click `Code`, `Download zip` and unarchive `macos-icons-updater.sh` file.
 Rename icons as programs named in the Dock.\
 Do not remove `.icns` extension.\
 Do not keep other files in this folder.\
-For example, you have created folder `icons` in the `Downloads`. It will have structure like this:
+For example, you have created the folder `icons` in the `Downloads`. It will have a structure like this:
 ```
 Firefox.icns
 GitHub Desktop.icns
@@ -16,12 +22,11 @@ macos-icons-updater.sh
 Microsoft Word.icns
 TeamViewer.icns
 ```
-3. Navigate to the tool in `Terminal`.\
-Open `Terminal` (<kbd>command</kbd>+<kbd>space</kbd>).\
-Navigate to the folder, where you keep the icons and tool. In the example, paste `cd Downloads/icons` and press <kbd>enter</kbd>.
+3. Navigate to the tool in Terminal.\
+Open Terminal (press <kbd>command</kbd>+<kbd>space</kbd>, enter `Terminal` and press <kbd>enter</kbd>) and navigate to the folder where you keep the icons and tool. In the example, paste `cd Downloads/icons` and press <kbd>enter</kbd>.
 4. Run the tool.\
-Paste `zsh macos-icons-updater.sh` into the `Terminal` and press <kbd>enter</kbd>.\
-If you are not logged in with an administrator account or don't know a password, paste `zsh macos-icons-updater.sh -nosudo` and press <kbd>enter</kbd>.\
+Paste `zsh macos-icons-updater.sh` into the Terminal and press <kbd>enter</kbd>.\
+If you are not logged in with an administrator account or don't know a password, paste `zsh macos-icons-updater.sh -nosudo` and press <kbd>enter</kbd>.
 5. Icons will be replaced with the new ones, Dock and Finder will be restarted.
 
 ## Feedback
