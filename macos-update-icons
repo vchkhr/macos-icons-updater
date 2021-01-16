@@ -1,0 +1,47 @@
+for icon in *;
+do
+    script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+    app=${icon/".icns"/""}
+
+    if [ $app = "macos-update-icons" ]
+    then
+        continue
+    fi
+    
+    info_plist="/Applications/"$app".app/Contents/Info.plist"
+    nextLineIsAppIcon=0
+    appIcon=""
+
+    while IFS= read -r line;
+    do
+        if [[ $line == *"<key>CFBundleIconFile</key>"* ]]
+        then
+            nextLineIsAppIcon=1
+            continue
+        fi
+
+        if [ $nextLineIsAppIcon = 1 ]
+        then
+            appIcon="$(cut -d'>' -f2 <<< "$line")"
+            appIcon="$(cut -d'<' -f1 <<< "$appIcon")"
+            break
+        fi
+    done < "$info_plist"
+
+    if [ $nextLineIsAppIcon = 0 ]
+    then
+        echo "\033[0;31mUnable to find icon name for this application: "$app"\033[0m"
+        continue
+    fi
+
+    if [[ $appIcon != *".icns" ]]
+    then
+        appIcon=$appIcon".icns"
+    fi
+
+    sudo cp ""$script_dir"/"$icon"" "/Applications/"$app".app/Contents/Resources/"$appIcon""
+
+done
+
+sudo killall Finder
+sudo killall Dock
