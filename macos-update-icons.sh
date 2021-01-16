@@ -1,9 +1,9 @@
 # Get current directory
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# Check nosudo flag
+# Check -nosudo flag
 no_sudo=0
-if [ "$1" = "nosudo" ]
+if [ "$1" = "-nosudo" ]
 then
     no_sudo=1
 fi
@@ -11,16 +11,23 @@ fi
 # Process all files in the current directory
 for icon in *;
 do
-    # If the file being processed is this program, then skip
-    if [ $icon = "macos-update-icons.sh" ]
+    # Do not process files of this repository
+    if [ $icon = ".gitignore" ] || [ $icon = "LICENSE" ] || [ $icon = "README.md" ] || [ $icon = "macos-update-icons.sh" ]
     then
         continue
     fi
 
-    # Get app name from icon's name
+    # Get app's name from icon's name
     app=${icon/".icns"/""}
 
-    # Get the "Info.plist" file of the program being processed. This is a file where icon name is written
+    # Check if there is app and it's "Info.plist" file
+    if [ ! -f /Applications/"$app".app/Contents/Info.plist ]
+    then
+        echo "\033[0;31mNo app \""$app"\" for this icon: "$icon"\033[0m"
+        continue
+    fi
+
+    # Get the "Info.plist" file of the app. Icon's name is written there
     info_plist="/Applications/"$app".app/Contents/Info.plist"
     nextLineIsAppIcon=0
     appIcon=""
@@ -45,10 +52,10 @@ do
         fi
     done < "$info_plist"
 
-    # Write error if icon's name is not found
+    # Check if icon's name is not found
     if [ $nextLineIsAppIcon = 0 ]
     then
-        echo "Unable to find icon name in Info.plist for this application: "$app""
+        echo "\033[0;31mUnable to find icon name in \"Info.plist\" for this app: "$app"\033[0m"
         continue
     fi
 
@@ -68,7 +75,7 @@ do
 
 done
 
-# Reload Finder and Dock
+# Reload Finder and Dock if not -nosudo flag
 if [ $no_sudo = 0 ]
 then
     sudo killall Finder
