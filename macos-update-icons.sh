@@ -1,5 +1,12 @@
 # Get current directory
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# Check nosudo flag
+no_sudo=0
+if [ "$1" = "nosudo" ]
+then
+    no_sudo=1
+fi
     
 # Process all files in the current directory
 for icon in *;
@@ -41,7 +48,7 @@ do
     # Write error if icon's name is not found
     if [ $nextLineIsAppIcon = 0 ]
     then
-        echo "\033[0;31mUnable to find icon name in Info.plist for this application: "$app"\033[0m"
+        echo "Unable to find icon name in Info.plist for this application: "$app""
         continue
     fi
 
@@ -52,10 +59,18 @@ do
     fi
 
     # Replace app's standard icon with the new one
-    sudo cp ""$script_dir"/"$icon"" "/Applications/"$app".app/Contents/Resources/"$appIcon""
+    if [ $no_sudo = 0 ]
+    then
+        sudo cp ""$script_dir"/"$icon"" "/Applications/"$app".app/Contents/Resources/"$appIcon""
+    else
+        cp ""$script_dir"/"$icon"" "/Applications/"$app".app/Contents/Resources/"$appIcon""
+    fi
 
 done
 
 # Reload Finder and Dock
-sudo killall Finder
-sudo killall Dock
+if [ $no_sudo = 0 ]
+then
+    sudo killall Finder
+    sudo killall Dock
+fi
