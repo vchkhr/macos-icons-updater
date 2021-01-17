@@ -31,9 +31,6 @@ If you are not logged in with an administrator account or don't know a password,
 
 You may need to launch the program before the Dock icon refreshes.
 
-## Feedback
-Feedback is always welcome at [GitHub Issues](https://github.com/vchkhr/macos-icons-updater/issues).
-
-## Support
-<a href="https://www.buymeacoffee.com/vchkhr" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60px" width="217px"></a>
-
+## Feedback and Donations
+Feedback is always welcome at [GitHub Issues](https://github.com/vchkhr/macos-icons-updater/issues).\
+You can donate to this project using [Patreon](https://patreon.com/vchkhr).
