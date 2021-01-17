@@ -27,7 +27,7 @@ Open Terminal (press <kbd>command</kbd>+<kbd>space</kbd>, paste `Terminal` and p
 4. Run the tool.\
 Paste `zsh macos-icons-updater.sh` into the Terminal and press <kbd>enter</kbd>.\
 If you are not logged in with an administrator account or don't know a password, paste `zsh macos-icons-updater.sh -nosudo` and press <kbd>enter</kbd>.
-5. Icons will be replaced with the new ones, Dock and Finder will be restarted.\
+5. Icons will be replaced with the new ones, Dock and Finder will be restarted.
 
 You may need to launch the program before the Dock icon refreshes.
 

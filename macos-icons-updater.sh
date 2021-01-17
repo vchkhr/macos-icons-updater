@@ -12,7 +12,7 @@ fi
 for icon in *;
 do
     # Do not process files of this repository
-    if [ $icon = ".gitignore" ] || [ $icon = "LICENSE" ] || [ $icon = "README.md" ] || [ $icon = "macos-icons-updater.sh" ]
+    if [ $icon = ".gitignore" ] || [ $icon = "icon.png" ] || [ $icon = "LICENSE" ] || [ $icon = "macos-icons-updater.sh" ] || [ $icon = "README.md" ]
     then
         continue
     fi
@@ -72,7 +72,6 @@ do
     else
         cp ""$script_dir"/"$icon"" "/Applications/"$app".app/Contents/Resources/"$appIcon""
     fi
-
 done
 
 # Reload Finder and Dock if not -nosudo flag
