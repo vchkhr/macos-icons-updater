@@ -23,11 +23,13 @@ Microsoft Word.icns
 TeamViewer.icns
 ```
 3. Navigate to the tool in Terminal.\
-Open Terminal (press <kbd>command</kbd>+<kbd>space</kbd>, enter `Terminal` and press <kbd>enter</kbd>) and navigate to the folder where you keep the icons and tool. In the example, paste `cd Downloads/icons` and press <kbd>enter</kbd>.
+Open Terminal (press <kbd>command</kbd>+<kbd>space</kbd>, paste `Terminal` and press <kbd>enter</kbd>) and navigate to the folder where you keep the icons and tool. In the example, paste `cd Downloads/icons` and press <kbd>enter</kbd>.
 4. Run the tool.\
 Paste `zsh macos-icons-updater.sh` into the Terminal and press <kbd>enter</kbd>.\
 If you are not logged in with an administrator account or don't know a password, paste `zsh macos-icons-updater.sh -nosudo` and press <kbd>enter</kbd>.
-5. Icons will be replaced with the new ones, Dock and Finder will be restarted.
+5. Icons will be replaced with the new ones, Dock and Finder will be restarted.\
+
+You may need to launch the program before the Dock icon refreshes.
 
 ## Feedback
 Feedback is always welcome at [GitHub Issues](https://github.com/vchkhr/macos-icons-updater/issues).
