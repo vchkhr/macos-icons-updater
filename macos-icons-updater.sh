@@ -3,31 +3,36 @@ script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Check -nosudo flag
 no_sudo=0
-if [ "$1" = "-nosudo" ]
+if [[ "$1" = "-nosudo" ]]
 then
     no_sudo=1
 fi
+
+# Count successful and failed jobs
+successful_jobs=0
+failed_jobs=0
     
 # Process all files in the current directory
 for icon in *;
 do
     # Do not process files of this repository
-    if [ $icon = ".DS_Store" ] || [ $icon = ".gitignore" ] || [ $icon = "LICENSE" ] || [ $icon = "moiu-logo.png" ] || [ $icon = "macos-icons-updater.sh" ] || [ $icon = "README.md" ]
+    if [ $icon = "LICENSE" ] || [ $icon = "macos-icons-updater.sh" ] || [ $icon = "moiu-logo.png" ] || [ $icon = "README.md" ]
     then
         continue
     fi
 
-    # Get app's name from icon's name
+    # Get app`s name from icon`s name
     app=${icon/".icns"/""}
 
-    # Check if there is app and it's "Info.plist" file
+    # Check if there are app and it's "Info.plist" file
     if [ ! -f /Applications/"$app".app/Contents/Info.plist ]
     then
-        echo "\033[0;31mNo app \""$app"\" for this icon: "$icon"\033[0m"
+        echo -e "\033[0;31mNo app found: "$app"\033[0m"
+        (( failed_jobs++ ))
         continue
     fi
 
-    # Get the "Info.plist" file of the app. Icon's name is written there
+    # Get the "Info.plist" file of the app (icon's name is written there)
     info_plist="/Applications/"$app".app/Contents/Info.plist"
     nextLineIsAppIcon=0
     appIcon=""
@@ -43,7 +48,7 @@ do
         fi
 
         # Process the line with the icon's name if flag
-        if [ $nextLineIsAppIcon = 1 ]
+        if [[ $nextLineIsAppIcon = 1 ]]
         then
             # Split by ">" and "<"
             appIcon="$(cut -d'>' -f2 <<< "$line")"
@@ -53,9 +58,10 @@ do
     done < "$info_plist"
 
     # Check if icon's name is not found
-    if [ $nextLineIsAppIcon = 0 ]
+    if [[ $nextLineIsAppIcon = 0 ]]
     then
-        echo "\033[0;31mUnable to find icon name in \"Info.plist\" for this app: "$app"\033[0m"
+        echo -e "\033[0;31mUnable to find icon name in \"Info.plist\" for this app: "$app"\033[0m"
+        (( failed_jobs++ ))
         continue
     fi
 
@@ -65,18 +71,41 @@ do
         appIcon=$appIcon".icns"
     fi
 
-    # Replace app's standard icon with the new one
-    if [ $no_sudo = 0 ]
+    # Replace app's standard icon with the new one and count successful and failed jobs
+    if [[ $no_sudo = 0 ]]
     then
         sudo cp ""$script_dir"/"$icon"" "/Applications/"$app".app/Contents/Resources/"$appIcon""
+        (( successful_jobs++ ))
     else
-        cp ""$script_dir"/"$icon"" "/Applications/"$app".app/Contents/Resources/"$appIcon""
+        # Check if file is writable or not
+        if [ -w "/Applications/"$app".app/Contents/Resources/"$appIcon ]
+        then
+            cp ""$script_dir"/"$icon"" "/Applications/"$app".app/Contents/Resources/"$appIcon""
+            (( successful_jobs++ ))
+        else
+            echo "\033[0;31mUnable to update icon for this application due to not writable permission: "$app"\033[0m"
+            (( failed_jobs++ ))
+        fi
     fi
+
 done
 
 # Reload Finder and Dock if not -nosudo flag
-if [ $no_sudo = 0 ]
+if [[ $no_sudo = 0 ]]
 then
     sudo killall Finder
     sudo killall Dock
+fi
+
+# Display result
+if [[ $successful_jobs > 0 ]]
+then
+    echo "\033[0;32mUpdated icon(s) for "$successful_jobs" app(s)\033[0m"
+else
+    if [[ $failed_jobs = 0 ]]
+    then
+        echo "\033[1;33mNo icon(s) updated. Check if you have placed icon(s) in the same directory with this script\033[0m"
+    else
+        echo "\033[1;33mNo icon(s) updated due to error(s)\033[0m"
+    fi
 fi
