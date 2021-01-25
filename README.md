@@ -9,7 +9,7 @@ Just put custom icons in the specific folder and run this tool after each update
 
 ## How to Use
 1. Download the tool.\
-Click `Code`, `Download zip` and unarchive `macos-icons-updater.sh` file.
+Go to [releases](https://github.com/vchkhr/macos-icons-updater/releases) and download the last `macos-icons-updater.sh` file.
 2. Put all the custom icons in the same folder with the tool.\
 Rename icons as programs named in the Dock.\
 Do not remove `.icns` extension.\

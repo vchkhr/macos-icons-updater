@@ -111,7 +111,7 @@ then
 else
     if [[ $failed_jobs = 0 ]]
     then
-        echo "\033[1;33mNo icon(s) updated. Check if you have placed icon(s) in the same directory with this script\033[0m"
+        echo "\033[1;33mNo icon(s) updated. Check if you have placed icon(s) in the same directory with this tool\033[0m"
     else
         echo "\033[1;33mNo icon(s) updated due to error(s)\033[0m"
     fi
