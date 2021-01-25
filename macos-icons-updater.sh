@@ -21,6 +21,13 @@ do
         continue
     fi
 
+    # Check if file is icon
+    if ! [ ${icon: -5} = ".icns" ]
+    then
+        echo "\033[1;33mFile was ignored because it is not an icon: "$icon"\033[0m"
+        continue
+    fi
+
     # Get app`s name from icon`s name
     app=${icon/".icns"/""}
 
