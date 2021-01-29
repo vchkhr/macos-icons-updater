@@ -13,7 +13,6 @@ Go to [releases](https://github.com/vchkhr/macos-icons-updater/releases) and dow
 2. Put all the custom icons in the same folder with the tool.\
 Rename icons as programs named in the Dock.\
 Do not remove `.icns` extension.\
-Do not keep other files in this folder.\
 For example, you have created the folder `icons` in the `Downloads`. It will have a structure like this:
 ```
 Firefox.icns
@@ -29,7 +28,7 @@ Paste `zsh macos-icons-updater.sh` into the Terminal and press <kbd>enter</kbd>.
 If you are not logged in with an administrator account or don't know a password, paste `zsh macos-icons-updater.sh -nosudo` and press <kbd>enter</kbd>.
 5. Icons will be replaced with the new ones, Dock and Finder will be restarted.
 
-You may need to launch the program before the Dock icon refreshes.
+You may need to relaunch the program or mac before the Dock icon refreshes.
 
 ## Feedback and Donations
 Feedback is always welcome at [GitHub Issues](https://github.com/vchkhr/macos-icons-updater/issues).\
