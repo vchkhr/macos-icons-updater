@@ -1,6 +1,14 @@
 # Get current directory
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# Check -h flag
+if [[ "$1" = "-h" ]]
+then
+    echo "===============================================================\n\033[0;32mmacOS Icons Updater\033[0m \nhttps://github.com/vchkhr/macos-icons-updater \nPlease read the documentation from the link above before using. \nMIT License is attached at the link above. \n==============================================================="
+
+    return
+fi
+
 # Check -nosudo flag
 no_sudo=0
 if [[ "$1" = "-nosudo" ]]
